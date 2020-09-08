@@ -23,8 +23,10 @@ class Controller {
 
     private function _render($folder, $viewName, $viewData = []) {
         if(file_exists('../src/views/'.$folder.'/'.$viewName.'.php')) {
-            extract($viewData);
-            $render = fn($vN, $vD = []) => $this->renderPartial($vN, $vD);
+            extract($viewData);            
+            $render = function($vN, $vD = []) {
+                $this->renderPartial($vN, $vD);
+            };
             $base = $this->getBaseUrl();
             require '../src/views/'.$folder.'/'.$viewName.'.php';
         }
